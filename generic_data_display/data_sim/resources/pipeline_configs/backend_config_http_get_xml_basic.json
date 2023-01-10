@@ -1,0 +1,43 @@
+{
+  "description": "Basic HTTP example config for testing the actual app interface",
+  "version": "1.0",
+  "config": [
+    {
+      "name": "http_get_xml_basic",
+      "connection": {
+        "type": "http",
+        "method": "GET",
+        "http_accept": "xml",
+        "address": "127.0.0.1",
+        "port": 8081,
+        "path": "/endpoint",
+        "rate_sec": 10,
+        "timeout_sec": 10
+      },
+      "data": {
+        "format": "xml",
+        "schema": "generic_data_display/data_sim/resources/data_definitions/xml/xml_http_test.xsd"
+      },
+      "generator": [
+        {
+          "name": "openmct",
+          "id": "openmct",
+          "config": {
+            "data": [
+              {
+                "name": "input_one",
+                "range_key": "test/increment"
+              }
+            ]
+          }
+        }
+      ],
+      "output" : [
+        {
+          "name": "openmct_display",
+          "consumes": "openmct"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "description": "Test file used to implement a basic TCP connection to send XML data.",
+  "version": 1.0,
+  "config": [
+    {
+      "connection": {
+        "type": "tcp",
+        "address": "localhost",
+        "port": 21774
+      },
+      "data": {
+        "type": "tcp_xml_basic"
+      }
+    }
+  ]
+}

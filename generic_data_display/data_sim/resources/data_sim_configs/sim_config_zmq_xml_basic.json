@@ -1,0 +1,17 @@
+{
+  "description": "Test file used to implement a basic TCP send of variable sized image data",
+  "version": 1.0,
+  "config": [
+    {
+      "connection": {
+        "type": "zmq",
+        "socket_type": "PUB",
+        "address": "127.0.0.1",
+        "port": 21773
+      },
+      "data": {
+        "type": "zmq_xml_basic"
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "description": "Test file used to implement a basic TCP send of binary structure data",
+  "version": 1.0,
+  "config": [
+    {
+      "connection": {
+        "type": "tcp",
+        "address": "localhost",
+        "port": 21772
+      },
+      "data": {
+        "type": "kaitai_basic",
+        "range_step": 2,
+        "range_start": 0,
+        "range_stop": 100,
+        "ms_between_send": 50,
+        "loop_forever": true
+      }
+    }
+  ]
+}

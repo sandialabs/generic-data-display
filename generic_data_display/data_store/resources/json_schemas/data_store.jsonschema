@@ -1,0 +1,25 @@
+{
+    "$id": "data_store.jsonschema",
+    "type": "object",
+    "properties": {
+        "description": {"type": "string"},
+        "name": {"type": "string", "enum": ["data_store"]},
+        "config": {
+            "properties": {
+                "time_limit": {"type": "integer"},
+                "gd2_pipeline_host": {"type": "string"},
+                "gd2_pipeline_port": {"type": "integer"},
+                "database_host": {"type": "string"},
+                "database_port": {"type": "integer"}
+            },
+            "required": ["time_limit",
+                        "gd2_pipeline_host",
+                        "gd2_pipeline_port",
+                        "database_host",
+                        "database_port"],
+            "additionalProperties": false
+        }
+    },
+    "required": ["name", "config"],
+    "additionalProperties": false
+}

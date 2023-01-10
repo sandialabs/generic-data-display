@@ -1,0 +1,21 @@
+#Generic
+.DS_Store
+.idea/
+*.swp
+scratchpad.*
+
+#Python
+*.egg-info
+build/
+dist/
+*.pyc
+.eggs
+.tox
+.*venv
+*kaitai.py
+venv*
+
+#Javascript
+node_modules
+
+#Test Scripts

@@ -1,0 +1,14 @@
+{
+    "$id": "zmq.jsonschema",
+    "type": "object",
+    "properties": {
+        "type": {"type": "string", "enum": ["zmq"]},
+        "socket_type": {"type": "string", "enum": ["SUB", "PULL"]},
+        "topic": {"type": "string"},
+        "address": {"type": "string"},
+        "port": {"type": "integer"},
+        "method": {"type": "string", "enum": ["bind", "connect"]}
+    },
+    "required": ["type", "socket_type", "topic"],
+    "additionalProperties": false
+}

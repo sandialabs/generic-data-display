@@ -1,0 +1,11 @@
+{
+    "$id": "openmct_folder.jsonschema",
+    "type": "object",
+    "properties":{
+        "name": {"type": "string"},
+        "location": {"type": "string"},
+        "type": {"type":"string", "enum":["folder"]}
+    },
+    "required": ["name"],
+    "additionalProperties": false
+}

@@ -1,0 +1,60 @@
+{
+    "$id": "config.jsonschema",
+    "type": "array",
+    "items": {
+        "type": "object",
+        "properties": {
+            "name": {"type": "string"},
+            "connection": {
+                "oneOf": [
+                    {"$ref": "tcp.jsonschema#"},
+                    {"$ref": "zmq.jsonschema#"},
+                    {"$ref": "http.jsonschema#"}
+                ]
+            },
+            "data": {
+                "oneOf": [
+                    {"$ref": "csv.jsonschema#"},
+                    {"$ref": "json.jsonschema#"},
+                    {"$ref": "kaitai.jsonschema#"},
+                    {"$ref": "protobuf.jsonschema#"},
+                    {"$ref": "xml.jsonschema#"},
+                    {"$ref": "yaml.jsonschema#"}
+                ]
+            },
+            "preprocessing": {
+                "type": "array",
+                "items": {
+                    "oneOf": [
+                        {"$ref": "base64.jsonschema#"},
+                        {"$ref": "find_index_by_key.jsonschema#"},
+                        {"$ref": "imagify.jsonschema#"},
+                        {"$ref": "omct_hints.jsonschema#"},
+                        {"$ref": "split_by_key.jsonschema#"},
+                        {"$ref": "throttle.jsonschema#"}
+                    ]
+                }
+            },
+            "generator": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                    "oneOf": [
+                        {"$ref": "openmct_generator.jsonschema"}
+                    ]
+                }
+            },
+            "output": {
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                    "oneOf": [
+                        {"$ref": "openmct_display.jsonschema"},
+                        {"$ref": "data_store_output.jsonschema"}
+                    ]
+                }
+            }
+        },
+        "required": ["name", "connection", "data", "generator", "output"]
+    }
+}

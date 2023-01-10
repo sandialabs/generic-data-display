@@ -1,0 +1,13 @@
+ARG CI_REGISTRY_IMAGE
+FROM ${CI_REGISTRY_IMAGE}/python_base
+
+ENV config_file=data_sim.json
+ENV log_level=info
+
+COPY docker/conf /opt/gd2/conf
+
+COPY . /opt/gd2/src
+RUN cd /opt/gd2/src && source /opt/gd2/venv/bin/activate && pip3 install -e .
+
+WORKDIR /opt/gd2/venv
+ENTRYPOINT /opt/gd2/venv/bin/gd2_data_sim --config-file /opt/gd2/conf/$config_file -l $log_level

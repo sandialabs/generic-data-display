@@ -1,0 +1,21 @@
+{
+    "$id": "openmct_layout.jsonschema",
+    "type": "object",
+    "properties":{
+        "name": {"type": "string"},
+        "location": {"type": "string"},
+        "format": {
+            "type": "array",
+            "items":{
+                "type":"array",
+                "items": {
+                    "type":"string"
+                }
+            }
+        },
+        "type": {"type":"string", "enum":["layout"]},
+        "rowsLayout": {"type": "boolean"}
+    },
+    "required": ["name", "format"],
+    "additionalProperties": false
+}

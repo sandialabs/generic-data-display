@@ -1,0 +1,6 @@
+syntax = "proto3"; 
+
+message ExampleData {
+    int32 counter = 1; 
+    string date = 2; 
+}

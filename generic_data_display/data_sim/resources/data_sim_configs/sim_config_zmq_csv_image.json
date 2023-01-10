@@ -1,0 +1,22 @@
+{
+  "description": "Test file used to implement a basic ZMQ send of a csv data structure",
+  "version": 1.0,
+  "config": [
+    {
+      "connection": {
+        "type": "zmq",
+        "socket_type": "PUB",
+        "address": "127.0.0.1",
+        "port": 21775
+      },
+      "data": {
+        "type": "csv_image",
+        "range": 10,
+        "ms_between_send": 1000,
+        "loop_forever": true,
+        "image_sizes": [32, 64, 128],
+        "color": true
+      }
+    }
+  ]
+}

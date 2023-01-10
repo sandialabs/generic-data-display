@@ -1,0 +1,18 @@
+{
+    "$id": "throttle.jsonschema",
+    "type": "object",
+    "properties": {
+        "name": {"type": "string", "enum": ["throttle"]},
+        "config": {
+            "type": "object",
+            "properties": {
+                "fields": {"type": "array", "items": {"type":"string"}},
+                "throttle_rate_ms": {"type": "integer"}
+            },
+            "required": ["fields", "throttle_rate_ms"],
+            "additionalProperties": false
+        }
+    },
+    "required": ["name", "config"],
+    "additionalProperties": false
+}

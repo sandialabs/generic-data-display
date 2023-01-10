@@ -1,0 +1,172 @@
+{
+    "description": "Large Example Config For Validating the GD2 JSON Validation",
+    "version": "1.0",
+    "config": [
+      {
+        "name": "validation",
+        "connection": {
+            "type": "tcp",
+            "method": "connect",
+            "address": "localhost",
+            "port": 51772,
+            "reconnect_attempts": 5,
+            "reconnect_interval_sec": 2
+        },
+        "data": {
+            "format": "protobuf",
+            "protobuf_file": "example_generic_data_display/resources/data_definitions/protobuf/basic_protobuf.proto",
+            "protobuf_class": "ExampleData",
+            "prefix_message_size_bytes": 4
+        },
+        "preprocessing": [
+            {
+                "name": "throttle",
+                "config": {
+                    "fields": ["match:stream/([0-9])/image"],
+                    "throttle_rate_ms": 100
+                }
+            },
+            {
+                "name": "base64",
+                "config": {
+                    "input": "match:stream/([0-9])/image",
+                    "output": "sub:stream/#0/b64",
+                    "operation": "encode"
+                }
+            },
+            {
+                "name": "imagify",
+                "config": {
+                    "input_array": "match:stream/([0-9])/b64",
+                    "datauri": "sub:url#0",
+                    "rows": "sub:stream/#0/width",
+                    "cols": "sub:stream/#0/height",
+                    "log_level": "DEBUG",
+                    "input_format": "RGB",
+                    "datauri_format": "BMP"
+                }
+            },
+            {
+                "name": "split_by_key",
+                "config": {
+                    "key_fields": {
+                        "key:metadata/image_subset_id": [
+                            "id_0",
+                            "id_1",
+                            "id_2"
+                        ]
+                    },
+                    "value_fields": [
+                        "metadata/temperature",
+                        "metadata/voltage",
+                        "metadata/nominal_value",
+                        "url0",
+                        "url1",
+                        "url2",
+                        "url3",
+                        "url4",
+                        "url5",
+                        "url6",
+                        "url7",
+                        "url8",
+                        "url9"
+                    ],
+                    "clear_dict_ms": 60000,
+                    "key_delimiter": ":"
+                }
+            },
+            {
+                "name": "find_index_by_key",
+                "config": {
+                    "field": "match:table/([0-9]+)/table",
+                    "key": "Recorder Status",
+                    "return": "sub:table/#0"
+                }
+            },
+            {
+                "name": "find_index_by_key",
+                "config": {
+                    "key": "fileRecorderRecordRate",
+                    "field": "match:Recorder Status/field/([0-9]+)/field_name"
+                }
+            },
+            {
+                "name": "omct_hints",
+                "config": {
+                    "confs": [
+                        {
+                            "match": "key:row",
+                            "hints": {
+                                "units": "pixels",
+                                "format": "jpeg",
+                                "name": "OMCT_HINTS",
+                                "type": "float"
+                            }
+                        },
+                        {
+                            "match":"key:col"
+                        }
+                    ]
+                }
+            }
+        ],
+        "generator": [
+            {
+              "name": "openmct",
+              "id": "openmct",
+              "config": {
+                "data": [
+                  {
+                    "name": "id_1",
+                    "type": "layout",
+                    "format": [
+                      ["url0:id_1"],
+                      ["temperature:id_1"],
+                      ["voltage:id_1"]
+                    ]
+                  },
+                  {
+                    "name": "url0",
+                    "type": ""
+                  },
+                  {
+                    "name": "temperature",
+                    "range_key": "metadata/temperature",
+                    "units": "deg C",
+                    "type": "plot.data"
+                  },
+                  {
+                    "name": "voltage",
+                    "range_key": "metadata/voltage"
+                  },
+                  {
+                    "name": "id_0",
+                    "type": "layout",
+                    "rowsLayout": false,
+                    "format": [
+                      ["url0:id_0"],
+                      ["temperature:id_0"],
+                      ["voltage:id_0", "id_1"]
+                    ]
+                  }
+                ]
+              }
+            }
+          ],
+          "output" : [
+            {
+              "name": "openmct_display",
+              "consumes": "openmct"
+            },
+            {
+              "name": "data_store",
+              "consumes": "openmct",
+              "config": {
+                "data_store_host": "127.0.0.1",
+                "data_store_port": 5050
+              }
+            }
+          ]
+       }
+    ]
+  }

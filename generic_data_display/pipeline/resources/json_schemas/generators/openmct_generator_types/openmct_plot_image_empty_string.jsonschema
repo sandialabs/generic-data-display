@@ -1,0 +1,15 @@
+{
+    "$id": "openmct_plot_image_empty_string.jsonschema",
+    "type": "object",
+    "properties": {
+        "name": {"type": "string"},
+        "range_key": {"type": "string"},
+        "domain_key": {"type": "string"},
+        "location": {"type": "string"},
+        "format": {"type": "string"},
+        "units": {"type": "string"},
+        "type": {"type":"string", "enum":["","plot.data","image.data"]}
+    },
+    "required": ["name"],
+    "additionalProperties": false
+}

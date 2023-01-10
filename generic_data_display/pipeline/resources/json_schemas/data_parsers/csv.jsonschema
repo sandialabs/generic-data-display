@@ -1,0 +1,10 @@
+{
+    "$id": "csv.jsonschema",
+    "type": "object",
+    "properties": {
+        "format": {"type": "string", "enum": ["csv"] },
+        "csv_headers": {"type": "string"}
+    },
+    "required": ["format", "csv_headers"],
+    "additionalProperties": false
+}

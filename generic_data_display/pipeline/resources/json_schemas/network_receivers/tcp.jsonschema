@@ -1,0 +1,14 @@
+{
+    "$id": "tcp.jsonschema",
+    "type": "object",
+    "properties": {
+        "type": {"type": "string", "enum": ["tcp"]},
+        "address": {"type": "string"},
+        "port": {"type": "integer"},
+        "method": {"type": "string", "enum": ["bind", "connect"]},
+        "reconnect_attempts": {"type": "integer"},
+        "reconnect_interval_sec": {"type": "integer"}
+    },
+    "required": ["type", "address", "port", "method", "reconnect_attempts", "reconnect_interval_sec"],
+    "additionalProperties": false
+}

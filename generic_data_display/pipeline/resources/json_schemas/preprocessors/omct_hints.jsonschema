@@ -1,0 +1,36 @@
+{
+    "$id": "omct_hints.jsonschema",
+    "type": "object",
+    "properties": {
+        "name": {"type": "string", "enum": ["omct_hints"]},
+        "config": {
+            "properties": {
+                "confs": {
+                    "type": "array",
+                    "items": {
+                        "type":"object",
+                        "properties":{
+                            "match": {"type": "string"},
+                            "hints": {
+                                "type": "object",
+                                "properties": {
+                                    "units": {"type": "string"},
+                                    "format": {"type": "string"},
+                                    "name": {"type": "string"},
+                                    "type": {"type": "string"}
+                                },
+                                "additionalProperties": false
+                            }
+                        },
+                        "required": ["match"],
+                        "additionalProperties": false
+                    }
+                }
+            },
+            "required": ["confs"],
+            "additionalProperties": false
+        }
+    },
+    "required": ["name", "config"],
+    "additionalProperties": false
+}

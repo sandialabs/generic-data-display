@@ -1,0 +1,71 @@
+{
+    "description": "Example Config For Validating the GD2 JSON Validation",
+    "version": "1.0",
+    "config": [
+        {
+            "name": "tcp_basic",
+            "connection": {
+                "type": "tcp",
+                "method": "connect",
+                "address": "localhost",
+                "port": 21772,
+                "reconnect_attempts": 5,
+                "reconnect_interval_sec": 2
+            },
+            "data": {
+                "format": "kaitai",
+                "kaitai_file": "example_generic_data_display/resources/data_definitions/kaitai/basic_kaitai.ksy"
+            },
+            "preprocessing": [
+                {
+                    "name": "split_by_key",
+                    "config": {
+                        "key_fields": {
+                            "y:/!!!": [
+                                "id_0",
+                                "id_1",
+                                "id_2"
+                            ]
+                        },
+                        "value_fields": [
+                            "metadata/temperature",
+                            "url0"
+                        ],
+                        "clear_dict_ms": 60000,
+                        "key_delimiter": ":"
+                    }
+                }
+            ],
+            "generator": [
+                {
+                    "name": "openmct",
+                    "id": "openmct",
+                    "config": {
+                        "data": [
+                        {
+                            "name": "image",
+                            "range_key": "url"
+                        },
+                        {
+                            "name": "image_id"
+                        },
+                        {
+                            "name": "image_size",
+                            "range_key": "byte_size"
+                        },
+                        {
+                            "name": "row"
+                        }
+                        ]
+                    }
+                }
+            ],
+            "ouptut": [
+                {
+                    "name": "openmct_display",
+                    "consumes": "openmct"
+                }
+            ]
+        }
+    ]
+}

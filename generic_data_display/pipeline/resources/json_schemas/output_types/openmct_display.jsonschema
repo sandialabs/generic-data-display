@@ -1,0 +1,10 @@
+{
+    "$id": "openmct_display.jsonschema",
+    "type": "object",
+    "properties": {
+        "name": {"type": "string", "enum": ["openmct_display"]},
+        "consumes": {"type": "string", "enum": ["openmct"]}
+    },
+    "required": ["name", "consumes"],
+    "additionalProperties": false
+}

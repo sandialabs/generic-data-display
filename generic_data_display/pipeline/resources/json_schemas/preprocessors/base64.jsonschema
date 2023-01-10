@@ -1,0 +1,18 @@
+{
+    "$id": "base64.jsonschema",
+    "type": "object",
+    "properties": {
+        "name": {"type": "string", "enum": ["base64"]},
+        "config": {
+            "properties": {
+                "input": {"type": "string"},
+                "output": {"type": "string"},
+                "operation": {"type":"string", "enum": ["encode", "decode"]}
+            },
+            "required": ["input", "output", "operation"],
+            "additionalProperties": false
+        }
+    },
+    "required": ["name", "config"],
+    "additionalProperties": false
+}

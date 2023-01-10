@@ -1,0 +1,10 @@
+node_modules
+
+#Javascript
+dist
+dist/*.js
+dist/openmct
+
+.cache
+
+npm-debug.log

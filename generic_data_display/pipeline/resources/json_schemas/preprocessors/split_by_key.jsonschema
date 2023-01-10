@@ -1,0 +1,30 @@
+{
+    "$id": "split_by_key.jsonschema",
+    "type": "object",
+    "properties": {
+        "name": {"type": "string", "enum": ["split_by_key"]},
+        "config": {
+            "properties": {
+                "key_fields": {
+                    "type": "object",
+                    "patternProperties": {
+                        "^key:[^\/]([0-9]*[a-z]*\/*_*-*)+$": {
+                            "type": "array",
+                            "items": {
+                                "type": "string"
+                            }
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "value_fields": {"type": "array", "items": {"type": "string"}},
+                "key_delimiter": {"type": "string"},
+                "clear_dict_ms": {"type": "integer"}
+            },
+            "required": ["key_fields", "value_fields", "key_delimiter"],
+            "additionalProperties": false
+        }
+    },
+    "required": ["name", "config"],
+    "additionalProperties": false
+}

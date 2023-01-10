@@ -1,0 +1,22 @@
+{
+    "$id": "protobuf.jsonschema",
+    "type": "object",
+    "properties": {
+        "format": {"type": "string", "enum": ["protobuf"] },
+        "protobuf_file": {"type": "string"},
+        "protobuf_class": {"type": "string"},
+        "prefix_message_size_bytes": {"type": "integer"}
+    },
+    "if": {
+        "connection_type": {"$ref": "config.jsonschema#/connection/properties/type"},
+        "properties": { "connection_type": { "const": "tcp" } }
+    },
+    "then": {
+        "required": ["format", "protobuf_file", "protobuf_class", "prefix_message_size_bytes"]
+    },
+    "else":{
+        "required": ["format", "protobuf_file", "protobuf_class"]
+    },
+    "additionalProperties": false
+
+}

@@ -1,0 +1,10 @@
+{
+    "type": "object",
+    "properties": {
+        "time": {"type": "string"},
+        "image_id": {"type": "integer"},
+        "image_edge": {"type": "integer"},
+        "image": {"type": "string"}
+    },
+    "required": ["time", "image_id", "image_edge", "image"]
+}

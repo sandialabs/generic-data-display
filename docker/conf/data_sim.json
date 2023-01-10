@@ -1,0 +1,21 @@
+{
+  "description": "Test file used to implement a basic TCP send of variable sized image data",
+  "version": 1.0,
+  "config": [
+    {
+      "connection": {
+        "type": "tcp",
+        "address": "0.0.0.0",
+        "port": 21774
+      },
+      "data": {
+        "type": "kaitai_image",
+        "range": 10,
+        "ms_between_send": 1000,
+        "loop_forever": true,
+        "image_sizes": [32, 64, 128],
+        "color": true
+      }
+    }
+  ]
+}

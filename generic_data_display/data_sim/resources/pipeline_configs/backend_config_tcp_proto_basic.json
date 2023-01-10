@@ -1,0 +1,43 @@
+{
+  "description": "Basic Example Config for testing the actual app interface via protobuf",
+  "version": "1.0",
+  "config": [
+    {
+      "name": "tcp_basic",
+      "connection": {
+        "type": "tcp",
+        "method": "connect",
+        "address": "localhost",
+        "port": 51772,
+        "reconnect_attempts": 5,
+        "reconnect_interval_sec": 2
+      },
+      "data": {
+        "format": "protobuf",
+        "protobuf_file": "generic_data_display/data_sim/resources/data_definitions/protobuf/basic_protobuf.proto",
+        "protobuf_class": "ExampleData",
+        "prefix_message_size_bytes": 4
+      },
+      "generator": [
+        {
+          "name": "openmct",
+          "id": "openmct",
+          "config": {
+            "data": [
+              {
+                "name": "input_one",
+                "range_key": "counter"
+              }
+            ]
+          }
+        }
+      ],
+      "output" : [
+        {
+          "name": "openmct_display",
+          "consumes": "openmct"
+        }
+      ]
+    }
+  ]
+}

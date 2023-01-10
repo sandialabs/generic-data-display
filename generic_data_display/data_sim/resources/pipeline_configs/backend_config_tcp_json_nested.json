@@ -1,0 +1,87 @@
+{
+  "description": "Basic Example Config for testing the actual app interface",
+  "version": "1.0",
+  "config": [
+    {
+      "name": "nested_json",
+      "connection": {
+        "type": "tcp",
+        "method": "connect",
+        "address": "localhost",
+        "port": 21774,
+        "reconnect_attempts": 5,
+        "reconnect_interval_sec": 2
+      },
+      "data": {
+        "format": "json"
+      },
+      "preprocessing": [
+        {
+          "name": "throttle",
+          "config": {
+            "fields": ["image"],
+            "throttle_rate_ms": 100
+          }
+        },
+        {
+          "name": "base64",
+          "config": {
+            "input": "match:stream/([0-9])/image",
+            "output": "sub:stream/#0/b64",
+            "operation": "decode"
+          }
+        },
+        {
+          "name": "imagify",
+          "config": {
+            "input_array": "match:stream/([0-9])/b64",
+            "datauri": "sub:url#0",
+            "rows": "sub:key:stream/#0/width",
+            "cols": "sub:key:stream/#0/height"
+          }
+        },
+        {
+          "name": "omct_hints",
+          "config": {
+            "confs": [
+              {
+                "match": "match:stream/([67])/width",
+                "hints": {}
+              }
+            ]
+          }
+        }
+      ],
+      "generator": [
+        {
+          "name": "openmct",
+          "id": "openmct",
+          "config": {
+            "pass_all_omct": true,
+            "pass_bfs_depth": 2,
+            "data": [
+              {
+                "name": "image0",
+                "range_key": "url0"
+              },
+              {
+                "name": "image1",
+                "range_key": "url1"
+              },
+              {
+                "name": "image2",
+                "range_key": "url2"
+              }
+            ]
+          }
+        }
+      ],
+      "output" : [
+        {
+          "name": "openmct_display",
+          "consumes": "openmct"
+        }
+      ]
+    }
+  ]
+}

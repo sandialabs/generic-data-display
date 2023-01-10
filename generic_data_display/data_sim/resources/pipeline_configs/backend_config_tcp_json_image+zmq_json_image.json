@@ -1,0 +1,164 @@
+{
+    "description": "Basic Example Config for testing the actual app interface",
+    "version": "1.0",
+    "config": [
+      {
+        "name": "tcp_basic",
+        "connection": {
+          "type": "tcp",
+          "method": "connect",
+          "address": "localhost",
+          "port": 21774,
+          "reconnect_attempts": 5,
+          "reconnect_interval_sec": 2
+        },
+        "data": {
+          "format": "json",
+          "schema": "generic_data_display/data_sim/resources/data_definitions/json/basic_json.jsonschema"
+        },
+        "preprocessing": [
+          {
+            "name": "throttle",
+            "config": {
+              "fields": ["image"],
+              "throttle_rate_ms": 100
+            }
+          },
+          {
+            "name": "base64",
+            "config": {
+              "input": "key:image",
+              "output": "image",
+              "operation": "decode"
+            }
+          },
+          {
+            "name": "imagify",
+            "config": {
+              "input_array": "key:image",
+              "datauri": "url",
+              "rows": "key:image_edge",
+              "cols": "key:image_edge"
+            }
+          }
+          ],
+          "generator": [
+            {
+              "name": "openmct",
+              "id": "openmct",
+              "config": {
+                "data": [
+                  {
+                    "name": "image",
+                    "range_key": "url"
+                  },
+                    {
+                    "name": "image_id"
+                  },
+                    {
+                    "name": "image_size",
+                    "range_key": "image_edge"
+                  }
+                ]
+              }
+            }
+          ],
+          "output": [
+            {
+              "name": "openmct_display",
+              "consumes": "openmct"
+            },
+            {
+              "name": "data_store",
+              "consumes": "openmct",
+              "config": {
+                "data_store_host": "127.0.0.1",
+                "data_store_port": 5050
+              }
+            }
+          ]
+      },
+      {
+        "name": "telemetry_json",
+        "connection": {
+          "type": "zmq",
+          "method": "connect",
+          "address": "localhost",
+          "port": 21779,
+          "socket_type": "SUB",
+          "topic": ""
+        },
+        "data": {
+          "format": "json"
+        },
+        "preprocessing": [
+          {
+            "name": "throttle",
+            "config": {
+              "fields": ["match:stream/([0-9])/image"],
+              "throttle_rate_ms": 100
+            }
+          },
+          {
+            "name": "base64",
+            "config": {
+              "input": "match:stream/([0-9])/image",
+              "output": "sub:stream/#0/b64",
+              "operation": "decode"
+            }
+          },
+          {
+            "name": "imagify",
+            "config": {
+              "input_array": "match:stream/([0-9])/b64",
+              "datauri": "sub:url#0",
+              "rows": "sub:stream/#0/width",
+              "cols": "sub:stream/#0/height"
+            }
+          },
+          {
+            "name": "split_by_key",
+            "config": {
+              "key_fields": {"key:metadata/image_subset_id": ["id_0", "id_1", "id_2"]},
+              "value_fields": ["metadata/temperature", "metadata/voltage", "metadata/nominal_value", "url0", "url1", "url2", "url3", "url4", "url5", "url6", "url7", "url8", "url9"],
+              "clear_dict_ms": 60000,
+              "key_delimiter": ":"
+            }
+          }
+        ],
+        "generator": [
+          {
+            "name": "openmct",
+            "id": "openmct",
+            "config": {
+              "data": [
+                {
+                  "name": "url0"
+                },
+                {
+                  "name": "url4"
+                },
+                {
+                  "name": "url7"
+                },
+                {
+                  "name": "temperature",
+                  "range_key": "metadata/temperature"
+                },
+                {
+                  "name": "voltage",
+                  "range_key": "metadata/voltage"
+                }
+              ]
+            }
+          }
+        ],
+        "output": [
+          {
+            "name": "openmct_display",
+            "consumes": "openmct"
+          }
+        ]
+      }
+    ]
+  }

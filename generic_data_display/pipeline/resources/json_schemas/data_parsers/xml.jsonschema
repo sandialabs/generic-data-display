@@ -1,0 +1,11 @@
+{
+    "$id": "xml.jsonschema",
+    "type": "object",
+    "properties": {
+        "format": {"type": "string", "enum": ["xml"] },
+        "schema": {"type": "string"},
+        "message_delimiter_byte": {"type": "string"}
+    },
+    "required": ["format"],
+    "additionalProperties": false
+}

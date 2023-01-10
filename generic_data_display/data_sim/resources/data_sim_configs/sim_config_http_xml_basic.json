@@ -1,0 +1,17 @@
+{
+  "description": "Test file used to implement a basic TCP send of variable sized image data",
+  "version": 1.0,
+  "config": [
+    {
+      "connection": {
+        "type": "http",
+        "address": "127.0.0.1",
+        "port": 8081,
+        "endpoint": "/endpoint"
+      },
+      "data": {
+        "type": "http_xml_basic"
+      }
+    }
+  ]
+}

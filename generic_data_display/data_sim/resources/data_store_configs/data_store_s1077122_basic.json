@@ -1,0 +1,11 @@
+{
+    "description": "Basic config for configuring the data store connections",
+    "name": "data_store",
+    "config": {
+        "time_limit": 5000,
+        "gd2_pipeline_host": "127.0.0.1",
+        "data_store_port": 5050,
+        "database_host": "s1077122",
+        "database_port": 27017
+    }
+}

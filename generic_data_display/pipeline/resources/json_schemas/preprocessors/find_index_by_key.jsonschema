@@ -1,0 +1,18 @@
+{
+    "$id": "find_index_by_key.jsonschema",
+    "type": "object",
+    "properties": {
+        "name": {"type": "string", "enum": ["find_index_by_key"]},
+        "config": {
+            "properties": {
+                "field": {"type": "string"},
+                "key": {"type": "string"},
+                "return": {"type":"string"}
+            },
+            "required": ["field", "key"],
+            "additionalProperties": false
+        }
+    },
+    "required": ["name", "config"],
+    "additionalProperties": false
+}

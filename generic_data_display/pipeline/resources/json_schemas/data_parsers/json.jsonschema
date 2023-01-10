@@ -1,0 +1,10 @@
+{
+    "$id": "json.jsonschema",
+    "type": "object",
+    "properties": {
+        "format": {"type": "string", "enum": ["json"] },
+        "schema": {"type": "string"}
+    },
+    "required": ["format"],
+    "additionalProperties": false
+}

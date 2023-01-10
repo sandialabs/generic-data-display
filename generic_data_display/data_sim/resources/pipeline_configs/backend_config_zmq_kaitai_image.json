@@ -1,0 +1,66 @@
+{
+  "description": "Basic Example Config for testing the actual app interface",
+  "version": "1.0",
+  "config": [
+    {
+      "name": "zmq_basic",
+      "connection": {
+        "type": "zmq",
+        "method": "connect",
+        "address": "localhost",
+        "port": 21775,
+        "socket_type": "SUB",
+        "topic": ""
+      },
+      "data": {
+        "format": "kaitai",
+        "kaitai_file": "generic_data_display/data_sim/resources/data_definitions/kaitai/basic_image_kaitai.ksy"
+      },
+      "preprocessing": [
+        {
+          "name": "throttle",
+          "config": {
+            "fields": ["image"],
+            "throttle_rate_ms": 100
+          }
+        },
+        {
+          "name": "imagify",
+          "config": {
+            "input_array": "key:image",
+            "datauri": "url",
+            "rows": "match:r[oO]w",
+            "cols": "key:col"
+          }
+        }
+      ],
+      "generator": [
+        {
+          "name": "openmct",
+          "id": "openmct",
+          "config": {
+            "data": [
+              {
+                "name": "image",
+                "range_key": "url"
+              },
+              {
+                "name": "image_id"
+              },
+              {
+                "name": "image_size",
+                "range_key": "byte_size"
+              }
+            ]
+          }
+        }
+      ],
+      "output" : [
+        {
+          "name": "openmct_display",
+          "consumes": "openmct"
+        }
+      ]
+    }
+  ]
+}

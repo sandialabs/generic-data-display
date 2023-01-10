@@ -1,0 +1,18 @@
+{
+    "$id": "data_store_output.jsonschema",
+    "type": "object",
+    "properties": {
+        "name": {"type": "string", "enum": ["data_store"]},
+        "consumes": {"type": "string", "enum": ["openmct"]},
+        "config": {
+            "properties": {
+                "data_store_host": {"type": "string"},
+                "data_store_port": {"type": "integer"}
+            },
+            "required": ["data_store_host", "data_store_port"],
+            "additionalProperties": false
+        }
+    },
+    "required": ["name", "consumes", "config"],
+    "additionalProperties": false
+}

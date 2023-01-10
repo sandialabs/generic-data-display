@@ -1,0 +1,11 @@
+{
+    "description": "Basic config for configuring the data store connections",
+    "name": "data_store",
+    "config": {
+      "time_limit": 1000,
+      "gd2_pipeline_host": "pipeline",
+      "gd2_pipeline_port": 5050,
+      "database_host": "mongodb://mongo",
+      "database_port": 27017
+    }
+}

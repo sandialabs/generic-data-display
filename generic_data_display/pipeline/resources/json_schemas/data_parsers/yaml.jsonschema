@@ -1,0 +1,11 @@
+{
+    "$id": "yaml.jsonschema",
+    "type": "object",
+    "properties": {
+        "format": {"type": "string", "enum": ["yaml"] },
+        "schema": {"type": "string"},
+        "max_bytes": {"type": "integer"}
+    },
+    "required": ["format"],
+    "additionalProperties": false
+}

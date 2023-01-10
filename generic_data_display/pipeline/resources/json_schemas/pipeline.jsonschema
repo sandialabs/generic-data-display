@@ -1,0 +1,10 @@
+{
+    "$id": "pipeline.jsonschema",
+    "type": "object",
+    "properties": {
+        "description": { "type": "string" },
+        "version": { "type": "string" },
+        "config": { "$ref": "config.jsonschema#" }
+    },
+    "required": ["description", "version", "config"]
+}

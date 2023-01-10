@@ -1,0 +1,28 @@
+FROM docker/alpine:latest
+
+ENV PIP_CERT=/etc/ssl/certs/ca-certificates.crt
+
+RUN apk update && apk add \
+    bash \
+    build-base \
+    jpeg-dev \
+    linux-headers \
+    openjdk11-jre \
+    protobuf \
+    python3-dev \
+    wget \
+    zeromq-dev \
+    zlib-dev
+
+ARG kaitai_version=0.9
+RUN cd /opt && \
+    wget https://github.com/kaitai-io/kaitai_struct_compiler/releases/download/${kaitai_version}/kaitai-struct-compiler-${kaitai_version}.zip  && \
+    unzip kaitai-struct-compiler-${kaitai_version}.zip
+ENV PATH=${PATH}:/opt/kaitai-struct-compiler-${kaitai_version}/bin
+
+COPY requirements.txt /opt/gd2/
+RUN python3 -m venv /opt/gd2/venv && \
+    source /opt/gd2/venv/bin/activate && \
+    pip3 install -r /opt/gd2/requirements.txt
+
+VOLUME /opt/gd2/conf

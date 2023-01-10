@@ -1,0 +1,17 @@
+{
+    "$id": "http.jsonschema",
+    "type": "object",
+    "properties": {
+        "type": {"type": "string", "enum": ["http"]},
+        "address": {"type": "string"},
+        "port": {"type": "integer"},
+        "method": {"type": "string", "enum": ["GET", "POST"]},
+        "path": {"type": "string"},
+        "rate_sec": {"type": "integer"},
+        "timeout_sec": {"type": "integer"},
+        "http_accept": {"type": "string", "enum": ["json", "xml"]},
+        "post_request": {"type": "string"}
+    },
+    "required": ["type", "address", "port", "method"],
+    "additionalProperties": false
+}

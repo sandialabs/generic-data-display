@@ -1,0 +1,12 @@
+FROM docker/node-gyp:latest
+
+COPY ["frontend/sidecar_server/package.json", \
+    "frontend/sidecar_server/package-lock.json", \
+    "frontend/sidecar_server/server.js", "./"]
+
+
+RUN npm install
+
+EXPOSE 3000
+
+CMD node server.js --url mongodb://mongo:27017

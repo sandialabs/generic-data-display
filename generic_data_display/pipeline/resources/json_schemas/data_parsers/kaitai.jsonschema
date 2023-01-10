@@ -1,0 +1,10 @@
+{
+    "$id": "kaitai.jsonschema",
+    "type": "object",
+    "properties": {
+        "format": {"type": "string", "enum": ["kaitai"] },
+        "kaitai_file": {"type": "string"}
+    },
+    "required": ["format", "kaitai_file"],
+    "additionalProperties": false
+}

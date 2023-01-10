@@ -1,0 +1,22 @@
+{
+    "description": "Test file used to implement a basic TCP send of a protobuf data structure",
+    "version": 1.0,
+    "config": [
+      {
+        "connection": {
+          "type": "tcp",
+          "address": "localhost",
+          "port": 51772
+        },
+        "data": {
+          "type": "protobuf_basic",
+          "range_step": 2,
+          "range_start": 0,
+          "range_stop": 100,
+          "ms_between_send": 500,
+          "loop_forever": true,
+          "prepend_message_size": true 
+        }
+      }
+    ]
+  }

@@ -1,0 +1,41 @@
+{
+  "description": "Basic Example Config for testing the actual app interface",
+  "version": "1.0",
+  "config": [
+    {
+      "name": "zmq_basic",
+      "connection": {
+        "type": "zmq",
+        "method": "connect",
+        "address": "localhost",
+        "port": 21773,
+        "socket_type": "SUB",
+        "topic": ""
+      },
+      "data": {
+        "format": "kaitai",
+        "kaitai_file": "generic_data_display/data_sim/resources/data_definitions/kaitai/basic_kaitai.ksy"
+      },
+      "generator": [
+        {
+          "name": "openmct",
+          "id": "openmct",
+          "config": {
+            "data": [
+              {
+                "name": "input_one",
+                "range_key": "counter"
+              }
+            ]
+          }
+        }
+      ],
+      "output" : [
+        {
+          "name": "openmct_display",
+          "consumes": "openmct"
+        }
+      ]
+    }
+  ]
+}

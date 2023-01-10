@@ -1,0 +1,22 @@
+{
+    "$id": "imagify.jsonschema",
+    "type": "object",
+    "properties": {
+        "name": {"type": "string", "enum": ["imagify"]},
+        "config": {
+            "properties": {
+                "input_array": {"type": "string"},
+                "datauri": {"type": "string"},
+                "rows": {"type": "string"},
+                "cols": {"type": "string"},
+                "log_level": {"type": "string"},
+                "input_format": {"type":"string", "enum": ["RGB"]},
+                "datauri_format": {"type":"string", "enum": ["BMP"]}
+            },
+            "required": ["input_array", "datauri", "rows", "cols"],
+            "additionalProperties": false
+        }
+    },
+    "required": ["name", "config"],
+    "additionalProperties": false
+}

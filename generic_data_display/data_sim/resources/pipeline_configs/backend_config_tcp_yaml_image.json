@@ -1,0 +1,76 @@
+{
+  "description": "Basic Example Config for testing the actual app interface",
+  "version": "1.0",
+  "config": [
+    {
+      "name": "tcp_basic",
+      "connection": {
+        "type": "tcp",
+        "method": "connect",
+        "address": "localhost",
+        "port": 21774,
+        "reconnect_attempts": 5,
+        "reconnect_interval_sec": 2
+      },
+      "data": {
+        "format": "yaml",
+        "schema": "generic_data_display/data_sim/resources/data_definitions/json/basic_json.jsonschema",
+        "max_bytes": 1073741824
+      },
+      "preprocessing": [
+        {
+          "name": "throttle",
+          "config": {
+            "fields": ["image"],
+            "throttle_rate_ms": 100
+          }
+        },
+        {
+          "name": "base64",
+          "config": {
+            "input": "key:image",
+            "output": "image",
+            "operation": "decode"
+          }
+        },
+        {
+          "name": "imagify",
+          "config": {
+            "input_array": "key:image",
+            "datauri": "url",
+            "rows": "key:image_edge",
+            "cols": "key:image_edge"
+          }
+        }
+      ],
+      "generator": [
+        {
+          "name": "openmct",
+          "id": "openmct",
+          "config": {
+            "data": [
+              {
+                "name": "image",
+                "range_key": "url"
+              },
+              {
+                "name": "image_id",
+                "range_key": "image_id"
+              },
+              {
+                "name": "image_size",
+                "range_key": "image_edge"
+              }
+            ]
+          }
+        }
+      ],
+      "output" : [
+        {
+          "name": "openmct_display",
+          "consumes": "openmct"
+        }
+      ]
+    }
+  ]
+}

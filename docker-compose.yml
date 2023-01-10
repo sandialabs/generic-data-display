@@ -1,0 +1,62 @@
+version: "3.9"
+
+services:
+  frontend:
+    image: ${CI_REGISTRY_IMAGE}/frontend:latest
+    ports:
+      - "8080:8080"
+    deploy:
+      mode: global
+    depends_on:
+      - pipeline
+      - sidecar
+
+  data_sim:
+    image: ${CI_REGISTRY_IMAGE}/data_sim:latest
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+
+  pipeline:
+    image: ${CI_REGISTRY_IMAGE}/pipeline:latest
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - sidecar
+      - data_sim
+
+  data_store:
+    image: ${CI_REGISTRY_IMAGE}/data_store:latest
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+    depends_on:
+      - pipeline
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+      - "28017:28017"
+    deploy:
+      mode: global
+    volumes:
+      - mongo-data:/data/db
+
+  sidecar:
+    image: ${CI_REGISTRY_IMAGE}/sidecar:latest
+    ports:
+      - "3000:3000"
+    deploy:
+      mode: global
+    depends_on:
+      - mongo
+
+volumes:
+  gd2-conf:
+  mongo-data:

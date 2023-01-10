@@ -1,0 +1,43 @@
+{
+  "description": "Basic HTTP example config for testing the actual app interface",
+  "version": "1.0",
+  "config": [
+    {
+      "name": "http_post_json_basic",
+      "connection": {
+        "type": "http",
+        "method": "POST",
+        "http_accept": "json",
+        "address": "127.0.0.1",
+        "port": 8081,
+        "path": "/endpoint",
+        "rate_sec": 10,
+        "timeout_sec": 10,
+        "post_request": "{\"val\": 45, \"post\": {\"ok\": true}}"
+      },
+      "data": {
+        "format": "json"
+      },
+      "generator": [
+        {
+          "name": "openmct",
+          "id": "openmct",
+          "config": {
+            "data": [
+              {
+                "name": "input_one",
+                "range_key": "increment"
+              }
+            ]
+          }
+        }
+      ],
+      "output" : [
+        {
+          "name": "openmct_display",
+          "consumes": "openmct"
+        }
+      ]
+    }
+  ]
+}

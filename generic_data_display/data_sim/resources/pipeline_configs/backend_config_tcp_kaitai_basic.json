@@ -1,0 +1,41 @@
+{
+  "description": "Basic Example Config for testing the actual app interface",
+  "version": "1.0",
+  "config": [
+    {
+      "name": "tcp_basic",
+      "connection": {
+        "type": "tcp",
+        "method": "connect",
+        "address": "localhost",
+        "port": 21772,
+        "reconnect_attempts": 5,
+        "reconnect_interval_sec": 2
+      },
+      "data": {
+        "format": "kaitai",
+        "kaitai_file": "generic_data_display/data_sim/resources/data_definitions/kaitai/basic_kaitai.ksy"
+      },
+      "generator": [
+        {
+          "name": "openmct",
+          "id": "openmct",
+          "config": {
+            "data": [
+              {
+                "name": "input_one",
+                "range_key": "counter"
+              }
+            ]
+          }
+        }
+      ],
+      "output" : [
+        {
+          "name": "openmct_display",
+          "consumes": "openmct"
+        }
+      ]
+    }
+  ]
+}
